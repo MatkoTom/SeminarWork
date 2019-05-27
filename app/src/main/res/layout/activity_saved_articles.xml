@@ -6,14 +6,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/custom_border"
     android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".MainActivity">
+    android:padding="16dp"
+    tools:context=".SavedArticles">
 
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_back" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/customshape"
         android:orientation="horizontal">
 
@@ -36,22 +42,15 @@
             android:textSize="30sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvNothing"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_ripple"
-        android:text="Saved articles" />
+        android:layout_gravity="center" />
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewSaved"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"             />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

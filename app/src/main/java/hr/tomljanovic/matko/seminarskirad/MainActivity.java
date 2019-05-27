@@ -1,5 +1,6 @@
 package hr.tomljanovic.matko.seminarskirad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hr.tomljanovic.matko.seminarskirad.adapters.recycler.RecyclerViewAdapter;
 import hr.tomljanovic.matko.seminarskirad.model.Feed;
 import retrofit2.Call;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> titles = new ArrayList<>();
     private ArrayList<String> urls = new ArrayList<>();
+    public static RecyclerViewAdapter adapter;
 
     private HackerNewsAPI hackerNewsAPI;
 
@@ -49,10 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
         getItems();
 
+//        tvResult.setText(database.tableLog().selectUrl().toString());
+    }
+
+
+    @OnClick(R.id.btnNext)
+    public void nextAct() {
+        Intent i = new Intent(MainActivity.this, SavedArticles.class);
+        startActivity(i);
     }
 
     private void getItems() {
-
+//        database.clearAllTables();
         Call<List<Integer>> call = hackerNewsAPI.getStories();
         call.enqueue(new Callback<List<Integer>>() {
             @Override
@@ -70,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                 urls.add(url);
                             }
 
-                            RecyclerViewAdapter adapter = new RecyclerViewAdapter(titles, urls, getApplicationContext());
+                            adapter = new RecyclerViewAdapter(titles, urls, getApplicationContext());
                             recyclerView.setAdapter(adapter);
                             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                             adapter.notifyDataSetChanged();
