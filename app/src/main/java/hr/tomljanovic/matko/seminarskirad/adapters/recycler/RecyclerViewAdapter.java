@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hr.tomljanovic.matko.seminarskirad.R;
 import hr.tomljanovic.matko.seminarskirad.WebViewActivity;
@@ -26,6 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static final String TAG = "RecyclerViewAdapter";
 
+    private List<LogArticle> savedItems;
     private ArrayList<String> listItems = new ArrayList<>();
     private ArrayList<String> urlItems = new ArrayList<>();
     private Context context;
@@ -47,8 +51,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        Log.d(TAG, "onBindViewHolder: called");
-
         holder.tvTitle.setText(listItems.get(position));
         if (database.tableLog().selectAll().toString().contains(listItems.get(position))) {
             holder.ibtnSave.setImageResource(R.drawable.ic_star_full);
@@ -59,8 +61,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on: " + listItems.get(position));
-
                 Intent i = new Intent(context, WebViewActivity.class);
                 i.putExtra(URL_SENT, urlItems.get(position));
                 context.startActivity(i);
@@ -70,15 +70,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.ibtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (!isClicked && !(database.tableLog().selectAll().toString().contains(listItems.get(position)))) {
-                    Toast.makeText(context, "Item saved! " + listItems.get(position), Toast.LENGTH_SHORT).show();
                     database.tableLog().insert(new LogArticle(listItems.get(position), urlItems.get(position)));
-//                    Log.d(TAG, "onClick: " + database.tableLog().selectAll().toString());
                     holder.ibtnSave.setImageResource(R.drawable.ic_star_full);
+                    Animation animation = AnimationUtils.loadAnimation(context, R.anim.favorite_anim);
+                    animation.setInterpolator(new LinearInterpolator());
+                    holder.ibtnSave.startAnimation(animation);
                     isClicked = true;
-//                    holder.ibtnSave.setEnabled(false);
                 } else {
+                    savedItems = database.tableLog().selectAll();
+                    String item = listItems.get(position);
+                    for (LogArticle items : savedItems) {
+                        if (items.getTitle().contains(item)) {
+                            database.tableLog().delete(items);
+                        }
+                    }
                     holder.ibtnSave.setImageResource(R.drawable.ic_star);
                     isClicked = false;
                 }

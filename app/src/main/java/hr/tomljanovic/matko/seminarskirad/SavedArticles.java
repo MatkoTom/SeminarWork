@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -20,6 +21,9 @@ public class SavedArticles extends AppCompatActivity {
 
     @BindView(R.id.tvNothing)
     TextView tvNothing;
+
+    @BindView(R.id.tvBack)
+    TextView tvBack;
 
     private RecyclerViewAdapterSaved adapter;
 
@@ -47,6 +51,11 @@ public class SavedArticles extends AppCompatActivity {
 
     @OnClick(R.id.ivBack)
     public void goBack() {
+        finish();
+    }
+
+    @OnClick(R.id.tvBack)
+    public void textBack() {
         finish();
     }
 

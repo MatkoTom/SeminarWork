@@ -28,8 +28,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:layout_marginStart="20dp"
+        android:padding="5dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="5dp"
         android:background="@null"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_star" />
 </RelativeLayout>
 

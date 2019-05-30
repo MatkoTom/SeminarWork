@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="username"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Please enter username"
+        android:title="Enter username" />
+
+    <CheckBoxPreference
+        android:key="mail"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="Check this if you want to receive emails on future updates"
+        android:title="Email updates"/>
+
+    <SwitchPreference
+        android:key="update"
+        android:summary="Enable if you want to automatically update the app"
+        android:title="Automatic updates"/>
+
+
+</PreferenceScreen>

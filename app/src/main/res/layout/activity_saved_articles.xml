@@ -9,12 +9,29 @@
     android:padding="16dp"
     tools:context=".SavedArticles">
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_back" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="Back" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
