@@ -36,8 +36,7 @@ public class RecyclerViewAdapterSaved extends RecyclerView.Adapter<RecyclerViewA
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_savedlist, parent, false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -48,7 +47,6 @@ public class RecyclerViewAdapterSaved extends RecyclerView.Adapter<RecyclerViewA
         holder.parentLayour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(mContext, WebViewActivity.class);
                 i.putExtra(URL_SENT, log.getUrl());
                 mContext.startActivity(i);

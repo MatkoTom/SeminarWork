@@ -58,5 +58,4 @@ public class SavedArticles extends AppCompatActivity {
     public void textBack() {
         finish();
     }
-
 }

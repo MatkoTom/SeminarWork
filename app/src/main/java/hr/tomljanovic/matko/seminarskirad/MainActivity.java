@@ -1,10 +1,12 @@
 package hr.tomljanovic.matko.seminarskirad;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,9 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,8 @@ import butterknife.OnClick;
 import hr.tomljanovic.matko.seminarskirad.adapters.recycler.RecyclerViewAdapter;
 import hr.tomljanovic.matko.seminarskirad.model.Feed;
 import hr.tomljanovic.matko.seminarskirad.settings.SettingsActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import hr.tomljanovic.matko.seminarskirad.viewmodel.MainViewModel;
+import io.reactivex.disposables.CompositeDisposable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,14 +44,13 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
 
     public static final String URL_SENT = "URL_SENT";
-    public static final String URL = "https://hacker-news.firebaseio.com/";
     public static final String TAG = "What happened?";
 
-    private ArrayList<String> titles = new ArrayList<>();
-    private ArrayList<String> urls = new ArrayList<>();
+    private MainViewModel viewModel;
     public static RecyclerViewAdapter adapter;
-
-    private HackerNewsAPI hackerNewsAPI;
+    private CompositeDisposable disposable = new CompositeDisposable();
+    private ArrayList<String> urlItems = new ArrayList<>();
+    private List<Feed> feedList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        hackerNewsAPI = retrofit.create(HackerNewsAPI.class);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         getUsername();
         getItems();
@@ -93,47 +87,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getItems() {
-        titles = new ArrayList<>();
-        urls = new ArrayList<>();
-        Call<List<Integer>> call = hackerNewsAPI.getStories();
-        call.enqueue(new Callback<List<Integer>>() {
+        feedList = new ArrayList<>();
+        urlItems = new ArrayList<>();
+        viewModel.makeIdQuery().observe(this, new Observer<List<Integer>>() {
             @Override
-            public void onResponse(Call<List<Integer>> call, Response<List<Integer>> response) {
-                List<Integer> data = response.body();
-                for (int i = 0; i < 20; i++) {
-                    hackerNewsAPI.getFeed(data.get(i)).enqueue(new Callback<Feed>() {
-                        @Override
-                        public void onResponse(Call<Feed> call, Response<Feed> response) {
-                            String title = response.body().getTitle();
-                            String url = response.body().getUrl();
-                            if (!(url == null || title == null || url.contains("pdf"))) {
-                                titles.add(title);
-                                urls.add(url);
-                            }
+            public void onChanged(@Nullable List<Integer> integers) {
+                if (integers != null) {
+                    for (int i = 0; i <= 20; i++) {
+                        final int id = integers.get(i);
+                        viewModel.makeFeedQuery(id).observe(MainActivity.this, new Observer<Feed>() {
+                            @Override
+                            public void onChanged(@Nullable Feed feed) {
+                                feedList.add(feed);
+                                urlItems.add(feed.getUrl());
+                                adapter = new RecyclerViewAdapter(getApplicationContext(), feedList, urlItems);
+                                recyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
 
-                            adapter = new RecyclerViewAdapter(titles, urls, getApplicationContext());
-                            recyclerView.setAdapter(adapter);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                            adapter.notifyDataSetChanged();
-
-                            if (swipeLayout.isRefreshing()) {
-                                swipeLayout.setRefreshing(false);
+                                if (swipeLayout.isRefreshing()) {
+                                    swipeLayout.setRefreshing(false);
+                                }
                             }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Feed> call, Throwable t) {
-                            if (swipeLayout.isRefreshing()) {
-                                swipeLayout.setRefreshing(false);
-                            }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
-
-            @Override
-            public void onFailure(Call<List<Integer>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Something went wrong!" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -169,5 +146,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getUsername();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.clear();
     }
 }
