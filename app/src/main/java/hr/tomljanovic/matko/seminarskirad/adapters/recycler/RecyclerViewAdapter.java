@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.tomljanovic.matko.seminarskirad.R;
-import hr.tomljanovic.matko.seminarskirad.WebViewActivity;
+import hr.tomljanovic.matko.seminarskirad.view.webActivity.WebViewActivity;
 import hr.tomljanovic.matko.seminarskirad.database.dbmode.LogArticle;
 import hr.tomljanovic.matko.seminarskirad.model.Feed;
 
-import static hr.tomljanovic.matko.seminarskirad.MainActivity.URL_SENT;
+import static hr.tomljanovic.matko.seminarskirad.view.newsFeed.MainActivity.URL_SENT;
 import static hr.tomljanovic.matko.seminarskirad.utils.RoomApp.database;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {

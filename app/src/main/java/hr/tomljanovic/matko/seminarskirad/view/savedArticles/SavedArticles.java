@@ -1,4 +1,4 @@
-package hr.tomljanovic.matko.seminarskirad;
+package hr.tomljanovic.matko.seminarskirad.view.savedArticles;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hr.tomljanovic.matko.seminarskirad.R;
 import hr.tomljanovic.matko.seminarskirad.adapters.recycler.RecyclerViewAdapterSaved;
 
 import static hr.tomljanovic.matko.seminarskirad.utils.RoomApp.database;

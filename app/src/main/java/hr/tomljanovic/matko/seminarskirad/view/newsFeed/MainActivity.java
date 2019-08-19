@@ -1,4 +1,4 @@
-package hr.tomljanovic.matko.seminarskirad;
+package hr.tomljanovic.matko.seminarskirad.view.newsFeed;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -23,10 +23,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hr.tomljanovic.matko.seminarskirad.R;
+import hr.tomljanovic.matko.seminarskirad.view.savedArticles.SavedArticles;
 import hr.tomljanovic.matko.seminarskirad.adapters.recycler.RecyclerViewAdapter;
 import hr.tomljanovic.matko.seminarskirad.model.Feed;
 import hr.tomljanovic.matko.seminarskirad.settings.SettingsActivity;
-import hr.tomljanovic.matko.seminarskirad.viewmodel.MainViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MainActivity extends AppCompatActivity {

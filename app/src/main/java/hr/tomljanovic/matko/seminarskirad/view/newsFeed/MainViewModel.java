@@ -1,4 +1,4 @@
-package hr.tomljanovic.matko.seminarskirad.viewmodel;
+package hr.tomljanovic.matko.seminarskirad.view.newsFeed;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;

@@ -13,12 +13,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import hr.tomljanovic.matko.seminarskirad.MainActivity;
+import hr.tomljanovic.matko.seminarskirad.view.newsFeed.MainActivity;
 import hr.tomljanovic.matko.seminarskirad.R;
-import hr.tomljanovic.matko.seminarskirad.WebViewActivity;
+import hr.tomljanovic.matko.seminarskirad.view.webActivity.WebViewActivity;
 import hr.tomljanovic.matko.seminarskirad.database.dbmode.LogArticle;
 
-import static hr.tomljanovic.matko.seminarskirad.MainActivity.URL_SENT;
+import static hr.tomljanovic.matko.seminarskirad.view.newsFeed.MainActivity.URL_SENT;
 import static hr.tomljanovic.matko.seminarskirad.utils.RoomApp.database;
 
 public class RecyclerViewAdapterSaved extends RecyclerView.Adapter<RecyclerViewAdapterSaved.ViewHolder> {

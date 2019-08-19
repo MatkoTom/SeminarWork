@@ -15,11 +15,11 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".settings.SettingsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SavedArticles"
+        <activity android:name=".view.savedArticles.SavedArticles"
             android:screenOrientation="portrait" />
-        <activity android:name=".WebViewActivity"
+        <activity android:name=".view.webActivity.WebViewActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".view.newsFeed.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

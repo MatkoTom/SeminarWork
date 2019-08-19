@@ -1,6 +1,5 @@
-package hr.tomljanovic.matko.seminarskirad.adapters;
+package hr.tomljanovic.matko.seminarskirad.network.retrofit;
 
-import hr.tomljanovic.matko.seminarskirad.HackerNewsAPI;
 import hr.tomljanovic.matko.seminarskirad.utils.Const;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

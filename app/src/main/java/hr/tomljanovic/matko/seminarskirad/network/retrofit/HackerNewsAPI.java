@@ -1,4 +1,4 @@
-package hr.tomljanovic.matko.seminarskirad;
+package hr.tomljanovic.matko.seminarskirad.network.retrofit;
 
 import java.util.List;
 

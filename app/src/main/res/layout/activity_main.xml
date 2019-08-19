@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/custom_border"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".view.newsFeed.MainActivity">
 
     <include
         layout="@layout/custom_action_bar"/>

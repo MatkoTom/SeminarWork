@@ -5,7 +5,7 @@ import android.arch.lifecycle.LiveDataReactiveStreams;
 
 import java.util.List;
 
-import hr.tomljanovic.matko.seminarskirad.adapters.RetrofitAdapter;
+import hr.tomljanovic.matko.seminarskirad.network.retrofit.RetrofitAdapter;
 import hr.tomljanovic.matko.seminarskirad.model.Feed;
 import io.reactivex.schedulers.Schedulers;
 
