@@ -30,7 +30,7 @@
             android:textColor="#FFF"
             android:textSize="20sp"
             android:layout_weight="1"
-            android:text="Back" />
+            android:text="@string/back" />
     </LinearLayout>
 
     <LinearLayout

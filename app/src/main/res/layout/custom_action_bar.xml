@@ -9,8 +9,8 @@
         android:id="@+id/tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No user"
+        android:text="@string/no_user"
         android:textColor="#FFF"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 </android.support.v7.widget.Toolbar>

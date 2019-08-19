@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_ripple"
         android:textColor="#FFF"
-        android:text="Saved articles" />
+        android:text="@string/saved_articles" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout

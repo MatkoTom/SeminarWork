@@ -1,12 +1,13 @@
 package hr.tomljanovic.matko.seminarskirad.adapters;
 
 import hr.tomljanovic.matko.seminarskirad.HackerNewsAPI;
+import hr.tomljanovic.matko.seminarskirad.utils.Const;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitAdapter {
-    public static final String URL = "https://hacker-news.firebaseio.com/";
+    public static final String URL = Const.Network.BASE_URL;
 
     private static Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
             .baseUrl(URL)

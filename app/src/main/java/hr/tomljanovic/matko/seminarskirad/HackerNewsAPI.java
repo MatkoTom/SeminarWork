@@ -3,16 +3,16 @@ package hr.tomljanovic.matko.seminarskirad;
 import java.util.List;
 
 import hr.tomljanovic.matko.seminarskirad.model.Feed;
+import hr.tomljanovic.matko.seminarskirad.utils.Const;
 import io.reactivex.Flowable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface HackerNewsAPI {
 
-    @GET("v0/topstories.json?print=pretty")
+    @GET(Const.Network.GET_STORIES_URL)
     Flowable<List<Integer>> getStories();
 
-    @GET("v0/item/{id}.json?print=pretty")
+    @GET(Const.Network.GET_STORY_ITEM)
     Flowable<Feed> getFeed(@Path("id") int idStory);
 }

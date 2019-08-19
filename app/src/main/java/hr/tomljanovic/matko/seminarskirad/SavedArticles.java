@@ -40,7 +40,7 @@ public class SavedArticles extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         if (adapter.getItemCount() == 0) {
-            tvNothing.setText("Nothing here!");
+            tvNothing.setText(R.string.nothing_here);
         }
     }
 
